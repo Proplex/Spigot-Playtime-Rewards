@@ -1,0 +1,18 @@
+##################
+#General Settings#
+##################
+
+## Whether or not to log to the console when a player receives their payment.
+logToConsole: true
+
+## Whether or not to send a message to a player when they receive money for playtime.
+messagePlayer: true
+
+## Whether or not to monitor a player's AFK status (currently only CommandBook supported)
+checkForAFK: true
+
+## How long a player needs to be on to receive the payment, in minutes.
+timeInterval: 60
+
+## The amount of in-game currency to give to a player after timeInterval
+amountToGive: 30

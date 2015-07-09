@@ -2,19 +2,28 @@ package com.ipwnage.playtimerewards;
 
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.ipwnage.commands.CommandBase;
+
+import java.io.File;
 import java.util.logging.Logger;
 import net.milkbowl.vault.economy.Economy;
 
 public class CashMoney extends JavaPlugin {
 	private static final Logger log = Logger.getLogger("Minecraft");
 	public static Economy econ = null;
+	private File config = new File(getDataFolder(), "config.yml");
     @Override
     public void onEnable() {
+    	if(!config.exists()) {
+    		this.saveDefaultConfig();
+    		log.info((String.format("[%s] - Didn't find a configuration file, will make one.", getDescription().getName())));
+    	}
     	if(!setupEconomy()){
     		log.severe((String.format("[%s] - Your server doesn't have Vault installed. Disabling plugin.", getDescription().getName())));
     	}
     	//Setup the base command--/pr
-    	getCommand("pr").setExecutor(new CommandBase(this));
+    	//getCommand("pr").setExecutor(new CommandBase(this));
     	
     }
 
