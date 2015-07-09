@@ -11,7 +11,16 @@ import com.ipwnage.playtimerewards.CashMoney;
 public class CommandBase implements CommandExecutor {
 	
 	private CashMoney plugin;
+	private String faggotPermission = "ipwn.fag";
+	private String normalPermission = "ipwn.norm";
 	private String memberPermission = "ipwn.member";
+	private String trustedPermission = "ipwn.trus";
+	private String veteranPermission = "ipwn.vet";
+	private String seniorPermission = "ipwn.senior";
+	private String elderPermission = "ipwn.elder";
+	private String tribunePermission = "ipwn.trib";
+	private String staffPermission = "ipwn.staff";
+	private String adminPerm = "ipwn.admin";
 	
 	
 	public CommandBase(CashMoney cashMoney){
