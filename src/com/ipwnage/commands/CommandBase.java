@@ -11,6 +11,7 @@ import com.ipwnage.playtimerewards.CashMoney;
 public class CommandBase implements CommandExecutor {
 	
 	private CashMoney plugin;
+	//Permission nodes for each rank.
 	private String faggotPermission = "ipwn.fag";
 	private String normalPermission = "ipwn.norm";
 	private String memberPermission = "ipwn.member";
