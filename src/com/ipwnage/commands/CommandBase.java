@@ -11,6 +11,8 @@ import com.ipwnage.playtimerewards.CashMoney;
 public class CommandBase implements CommandExecutor {
 	
 	private CashMoney plugin;
+	private String memberPermission = "ipwn.member";
+	
 	
 	public CommandBase(CashMoney cashMoney){
 		this.plugin = cashMoney;
