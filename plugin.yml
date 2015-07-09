@@ -2,3 +2,8 @@ name: PlaytimeRewards
 main: com.ipwnage.playtimerewards.CashMoney
 version: 1.0
 commands:
+  pr:
+      description: This is a test command.
+      usage: /pr
+     
+ 
