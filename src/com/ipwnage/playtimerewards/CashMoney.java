@@ -13,6 +13,8 @@ public class CashMoney extends JavaPlugin {
     	if(!setupEconomy()){
     		log.severe((String.format("[%s] - Your server doesn't have Vault installed. Disabling plugin.", getDescription().getName())));
     	}
+    	//Setup the base command--/pr
+    	getCommand("pr").setExecutor(new CommandBase(this));
     	
     }
 
