@@ -1,4 +1,4 @@
-package com.ipwnage.commands;
+package com.ipwnage.playtimerewards;
 
 public class CommandPermissions {
 	

@@ -1,4 +1,4 @@
-package com.ipwnage.commands;
+package com.ipwnage.playtimerewards;
 
 import java.io.File;
 import java.io.FileReader;
@@ -14,8 +14,6 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import com.ipwnage.playtimerewards.CashMoney;
 
 public class CommandBase  implements CommandExecutor {
 	

@@ -3,7 +3,7 @@ package com.ipwnage.playtimerewards;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.ipwnage.commands.CommandBase;
+import com.ipwnage.playtimerewards.CommandBase;
 
 import java.io.File;
 import java.util.logging.Logger;
