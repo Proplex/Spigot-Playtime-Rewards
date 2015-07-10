@@ -1,0 +1,7 @@
+package com.ipwnage.commands;
+
+public class CommandPermissions {
+	
+	public final String DISABLE_PERM = "ipwn.disable";
+
+}
