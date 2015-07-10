@@ -13,17 +13,23 @@ public class CashMoney extends JavaPlugin {
 	private static final Logger log = Logger.getLogger("Minecraft");
 	public static Economy econ = null;
 	private File config = new File(getDataFolder(), "config.yml");
+	private File TextPrompt = new File(getDataFolder(), "TextPrompts.txt");
+	
     @Override
     public void onEnable() {
     	if(!config.exists()) {
     		this.saveDefaultConfig();
     		log.info((String.format("[%s] - Didn't find a configuration file, will make one.", getDescription().getName())));
     	}
+    	if(!TextPrompt.exists()) {
+    		this.saveResource("TextPrompts.txt", false);
+    		log.info((String.format("[%s] - Didn't find a Text Prompt file, will make one.", getDescription().getName())));
+    	}
     	if(!setupEconomy()){
     		log.severe((String.format("[%s] - Your server doesn't have Vault installed. Disabling plugin.", getDescription().getName())));
     	}
     	//Setup the base command--/pr
-    	//getCommand("pr").setExecutor(new CommandBase(this));
+    	getCommand("pr").setExecutor(new CommandBase(this));
     	
     }
 
