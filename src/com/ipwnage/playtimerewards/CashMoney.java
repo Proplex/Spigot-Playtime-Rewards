@@ -1,12 +1,8 @@
 package com.ipwnage.playtimerewards;
 
-import org.bukkit.Location;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,10 +10,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.ipwnage.playtimerewards.CommandBase;
 
 import java.io.File;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.logging.Level;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Logger;
 
 import net.milkbowl.vault.economy.Economy;
@@ -43,6 +37,7 @@ public class CashMoney extends JavaPlugin implements Listener {
     	}
     	if(!setupEconomy()){
     		log.severe((String.format("[%s] - Your server doesn't have Vault installed. Disabling plugin.", getDescription().getName())));
+    		//getServer().getPluginManager().disablePlugin(this);
     	}
     	
     	//Setup the base command--/pr
@@ -68,24 +63,28 @@ public class CashMoney extends JavaPlugin implements Listener {
     
     //This is where we tell the server to add money to the player, for every minute 
     @EventHandler
-    public void onPlayerLoginEvent(PlayerLoginEvent e){
-    /*	
-    	Date d  = new Date();
-    	Long login  =  d.getTime();
-    	
+    public void onPlayerLoginEvent(final PlayerLoginEvent e){
+    	int milisInAMinute = 60000;
+    	final double rate = 1.0;
+    	long time = System.currentTimeMillis();
+	
+    	final Runnable update = new Runnable() {
+		@SuppressWarnings("deprecation")
+		public void run() {
+	        //when the minute changes, execute this.
+	    	econ.depositPlayer(e.getPlayer().getName(), rate);
+			}
+    	};
 
-     	
-     	This is mostly pseudocode.
-     	
-    	double moneyPerMinute = 0.50;
-    	
-    	String player = e.getPlayer().getName();
-    	
-    	   	
-    	while(!player.isAfk){
-    		addMoney(player, login);
-    	}
-    */
+    	Timer timer = new Timer();
+    	timer.schedule(new TimerTask() {
+    		public void run() {
+    			update.run();
+    		}
+    	}, time % milisInAMinute, milisInAMinute);
+
+    	update.run();
+   
     }
     
     
@@ -95,13 +94,8 @@ public class CashMoney extends JavaPlugin implements Listener {
     }
     
     
-    public void addMoney(String name, Long login) {
-    	
-    	double moneyPerMinute = 0.50;
-    	
-    	econ.bankDeposit(name, moneyPerMinute);
-    	
-	}
-   
+    public void addMoney(final String name){
     
+    	
+    }
 }
