@@ -93,9 +93,9 @@ public class CashMoney extends JavaPlugin implements Listener {
     @EventHandler
     public void endTask(PlayerQuitEvent e){
         if(taskID.containsKey(e.getPlayer().getName())){
-            int tid = taskID.get(e.getPlayer().getName()); //get the ID from the hashmap
-            getServer().getScheduler().cancelTask(tid); //cancel the task
-            taskID.remove(e.getPlayer().getName()); //remove the player from the hashmap
+            int tid = taskID.get(e.getPlayer().getName()); 
+            getServer().getScheduler().cancelTask(tid); 
+            taskID.remove(e.getPlayer().getName()); 
         }
     }
 
