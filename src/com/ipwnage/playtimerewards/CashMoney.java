@@ -27,7 +27,8 @@ public class CashMoney extends JavaPlugin implements Listener {
     public static Economy econ = null;
     private File config = new File(getDataFolder(), "config.yml");
     private File TextPrompt = new File(getDataFolder(), "TextPrompts.txt");
-    BukkitScheduler scheduler = Bukkit.getServer().getScheduler() ;
+    BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
+    public Map<String, Integer> taskID = new HashMap<String, Integer>();
 
 
     //The formula for interval is secconds * ticks(Make this 20). I.E: 60 * 20
@@ -37,7 +38,7 @@ public class CashMoney extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-
+        //Register the events PlayerJoinEvent and PlayerQuitEvent
         getServer().getPluginManager().registerEvents(this, this);
 
         if(!config.exists()) {
@@ -50,7 +51,7 @@ public class CashMoney extends JavaPlugin implements Listener {
         }
         if(!setupEconomy()){
             log.severe((String.format("[%s] - Your server doesn't have Vault installed. Disabling plugin.", getDescription().getName())));
-            //getServer().getPluginManager().disablePlugin(this);
+            getServer().getPluginManager().disablePlugin(this);
         }
 
         //Setup the base command--/pr
@@ -76,29 +77,29 @@ public class CashMoney extends JavaPlugin implements Listener {
 
 
 
-    public Map<String, Integer> taskID = new HashMap<String, Integer>();
 
-    
     @EventHandler
     public void scheduleRepeatingTask(final PlayerJoinEvent event){
         final int tid = getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             public void run() {
+                // DEBUG ONLY  log.info("Giving " + rate + " to " + event.getPlayer().getName());
                 econ.depositPlayer(event.getPlayer().getName(), rate);
             }
-        }, 0, interval); 
+        }, 0, interval);
 
-        taskID.put(event.getPlayer().getName(), tid); 
+        taskID.put(event.getPlayer().getName(), tid);
     }
 
     
     @EventHandler
     public void endTask(PlayerQuitEvent e){
         if(taskID.containsKey(e.getPlayer().getName())){
-            int tid = taskID.get(e.getPlayer().getName()); 
-            getServer().getScheduler().cancelTask(tid); 
-            taskID.remove(e.getPlayer().getName()); 
+            int tid = taskID.get(e.getPlayer().getName());
+            getServer().getScheduler().cancelTask(tid);
+            taskID.remove(e.getPlayer().getName());
         }
     }
 
-}
 
+
+}
