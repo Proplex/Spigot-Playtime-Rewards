@@ -48,4 +48,3 @@ public class CashMoney extends JavaPlugin {
         econ = rsp.getProvider();
         return econ != null;
     }
-}
