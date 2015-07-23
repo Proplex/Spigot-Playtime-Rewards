@@ -1,8 +1,10 @@
 package com.ipwnage.playtimerewards;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -11,6 +13,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.ipwnage.playtimerewards.CommandBase;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Logger;
@@ -70,25 +74,33 @@ public class CashMoney extends JavaPlugin implements Listener {
         return econ != null;
     }
 
-    //This is where we tell the server to add money to the player, for every INTERVAL
+
+    public Map<String, Integer> taskID = new HashMap<String, Integer>();
+
+    //call this to schedule the task
     @EventHandler
-    public void onPlayerLoginEvent(final PlayerLoginEvent e){
-        final String player  = e.getPlayer().getName();
-       scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
-           @Override
-           public void run() {
-               econ.depositPlayer(player, rate);
-           }
-       }, 0, interval);
+    public void scheduleRepeatingTask(final PlayerJoinEvent event){
+        final int tid = getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+            public void run() {
+                //do you want here
+                log.info("Giving " + rate + " to " + event.getPlayer().getName());
+                econ.depositPlayer(event.getPlayer().getName(), rate);
+            }
+        }, 0, interval); //schedule task with the ticks specified in the arguments
 
-
+        taskID.put(event.getPlayer().getName(), tid); //put the player in a hashmap
     }
 
-
+    //call this to end the task
     @EventHandler
-    public void onPlayerLogoutEvent(PlayerQuitEvent e){
-
+    public void endTask(PlayerQuitEvent e){
+        if(taskID.containsKey(e.getPlayer().getName())){
+            int tid = taskID.get(e.getPlayer().getName()); //get the ID from the hashmap
+            getServer().getScheduler().cancelTask(tid); //cancel the task
+            taskID.remove(e.getPlayer().getName()); //remove the player from the hashmap
+        }
     }
+
 
 
 }
