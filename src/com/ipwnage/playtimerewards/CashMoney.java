@@ -77,21 +77,19 @@ public class CashMoney extends JavaPlugin implements Listener {
 
     public Map<String, Integer> taskID = new HashMap<String, Integer>();
 
-    //call this to schedule the task
+    
     @EventHandler
     public void scheduleRepeatingTask(final PlayerJoinEvent event){
         final int tid = getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             public void run() {
-                //do you want here
-                log.info("Giving " + rate + " to " + event.getPlayer().getName());
                 econ.depositPlayer(event.getPlayer().getName(), rate);
             }
-        }, 0, interval); //schedule task with the ticks specified in the arguments
+        }, 0, interval); 
 
-        taskID.put(event.getPlayer().getName(), tid); //put the player in a hashmap
+        taskID.put(event.getPlayer().getName(), tid); 
     }
 
-    //call this to end the task
+    
     @EventHandler
     public void endTask(PlayerQuitEvent e){
         if(taskID.containsKey(e.getPlayer().getName())){
