@@ -38,7 +38,7 @@ public class CashMoney extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        //Register the events PlayerJoinEvent and PlayerQuitEvent
+
         getServer().getPluginManager().registerEvents(this, this);
 
         if(!config.exists()) {
@@ -51,7 +51,7 @@ public class CashMoney extends JavaPlugin implements Listener {
         }
         if(!setupEconomy()){
             log.severe((String.format("[%s] - Your server doesn't have Vault installed. Disabling plugin.", getDescription().getName())));
-            getServer().getPluginManager().disablePlugin(this);
+            //getServer().getPluginManager().disablePlugin(this);
         }
 
         //Setup the base command--/pr
@@ -61,6 +61,7 @@ public class CashMoney extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
+
     }
 
     private boolean setupEconomy() {
@@ -79,20 +80,19 @@ public class CashMoney extends JavaPlugin implements Listener {
 
 
     @EventHandler
-    public void scheduleRepeatingTask(final PlayerJoinEvent event){
+    public void onPLayerJoin(final PlayerJoinEvent event){
         final int tid = getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             public void run() {
-                // DEBUG ONLY  log.info("Giving " + rate + " to " + event.getPlayer().getName());
+                //log.info("Giving " + rate + " to " + event.getPlayer().getName());
                 econ.depositPlayer(event.getPlayer().getName(), rate);
             }
         }, 0, interval);
 
         taskID.put(event.getPlayer().getName(), tid);
     }
-
     
     @EventHandler
-    public void endTask(PlayerQuitEvent e){
+    public void onPLayerLeave(PlayerQuitEvent e){
         if(taskID.containsKey(e.getPlayer().getName())){
             int tid = taskID.get(e.getPlayer().getName());
             getServer().getScheduler().cancelTask(tid);
