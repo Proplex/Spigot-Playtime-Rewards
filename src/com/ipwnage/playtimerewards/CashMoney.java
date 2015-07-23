@@ -73,8 +73,7 @@ public class CashMoney extends JavaPlugin implements Listener {
         econ = rsp.getProvider();
         return econ != null;
     }
-<<<<<<< HEAD
-=======
+
 
 
     public Map<String, Integer> taskID = new HashMap<String, Integer>();
@@ -101,7 +100,5 @@ public class CashMoney extends JavaPlugin implements Listener {
         }
     }
 
-
-
 }
->>>>>>> origin/master
+
