@@ -1,40 +1,38 @@
 package com.ipwnage.playtimerewards;
 
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import com.ipwnage.playtimerewards.CommandBase;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.logging.Logger;
-
-import net.milkbowl.vault.economy.Economy;
-import org.bukkit.scheduler.BukkitScheduler;
 
 public class CashMoney extends JavaPlugin implements Listener {
     private static final Logger log = Logger.getLogger("Minecraft");
     public static Economy econ = null;
     private File config = new File(getDataFolder(), "config.yml");
     private File TextPrompt = new File(getDataFolder(), "TextPrompts.txt");
-    BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
-    public Map<String, Integer> taskID = new HashMap<String, Integer>();
+    private BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
+    private Map<String, Integer> taskID = new HashMap<String, Integer>();
+
 
 
     //The formula for interval is secconds * ticks(Make this 20). I.E: 60 * 20
     protected long interval = 60 * 20;
     //The amount of money each player will get each interval.
     protected double rate = 0.5;
+    //The amount of money each donator will recieve.
+    protected double donatorRate = 1.5;
+
 
     @Override
     public void onEnable() {
@@ -81,16 +79,38 @@ public class CashMoney extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPLayerJoin(final PlayerJoinEvent event){
-        final int tid = getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-            public void run() {
-                //log.info("Giving " + rate + " to " + event.getPlayer().getName());
-                econ.depositPlayer(event.getPlayer().getName(), rate);
-            }
-        }, 0, interval);
+        Player p = event.getPlayer();
 
-        taskID.put(event.getPlayer().getName(), tid);
+        if(p.hasPermission("ipwnage.rate.donator")){
+            //Rate for donators.
+            final int tid = getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+                public void run() {
+                    //DEBUG:
+                    //log.info("Giving " + donatorRate + " to " + event.getPlayer().getName());
+
+
+                    //Yes. I know this method is deprecated, but it works.
+                    econ.depositPlayer(event.getPlayer().getName(), donatorRate);
+                }
+            }, 0, interval);
+            taskID.put(event.getPlayer().getName(), tid);
+
+        }else{     //Ethier you have the permission or you don't. No need for this if/else to go any further.
+            //Rate for non-donators.
+            final int tid = getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+                public void run() {
+                    //DEBUG:
+                    //log.info("Giving " + rate + " to " + event.getPlayer().getName());
+
+                    //Yes. I know this method is deprecated, but it works.
+                    econ.depositPlayer(event.getPlayer().getName(), rate);
+                }
+            }, 0, interval);
+
+            taskID.put(event.getPlayer().getName(), tid);
+        }
     }
-    
+
     @EventHandler
     public void onPLayerLeave(PlayerQuitEvent e){
         if(taskID.containsKey(e.getPlayer().getName())){
