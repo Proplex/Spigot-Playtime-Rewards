@@ -1,9 +1,15 @@
 name: PlaytimeRewards
 main: com.ipwnage.playtimerewards.CashMoney
+author: [Drew1895, Protocol_7]
 version: 1.0
+depend: [Vault]
 commands:
   pr:
       description: This is a test command.
       usage: /pr
      
  
+permissions:
+    ipwnage.rate.donator:
+        description: Allows money generation at a higher rate.
+        default: false
