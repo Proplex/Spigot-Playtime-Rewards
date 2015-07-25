@@ -10,6 +10,9 @@ commands:
      
  
 permissions:
+    ipwnage.staff:
+        description: Give this to staff so that they can use the commands in this plugin.
+        default: false
     ipwnage.rate.donator:
         description: Allows money generation at a higher rate.
         default: false
