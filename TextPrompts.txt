@@ -1,5 +1,0 @@
-#Works like player.sendMessage(player.getName() + CMD_DISABLE);
-CMD_DISABLE= will not receive money each hour.
-#Works like player.sendMessage(player.getName() + CMD_ENABLE);
-CMD_ENABLE= will now receive money each hour.
-CMD_NO_PERM=You not have permission to execute this command.
