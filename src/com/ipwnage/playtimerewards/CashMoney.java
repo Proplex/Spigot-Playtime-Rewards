@@ -21,22 +21,23 @@ import java.util.logging.Logger;
 
 public class CashMoney extends JavaPlugin implements Listener {
     public static Economy econ = null;
-    public Map<Player, Integer> pi = new HashMap<Player, Integer>();
+    public Map<Player, Double> pi = new HashMap<Player, Double>();
+    public Map<String, Integer> taskID = new HashMap<String, Integer>();
 
     public int timeout = getConfig().getInt("timeout") / 2;
     public boolean logConsole  = getConfig().getBoolean("logToConsole");
     public boolean measeagePlayer = getConfig().getBoolean("messagePlayer");
     public boolean checkAfk = getConfig().getBoolean("checkForAfk");
     public int delay = getConfig().getInt("delay");
-    protected double rate = getConfig().getInt("semiCreativeAmountToGive");
-    protected double donatorRate = getConfig().getDouble("donatorSemiCreativeAmountToGive");
-    protected double survivalWorldRate = getConfig().getDouble("survivalAmountToGive");
-    protected double survivalWorldDonatorRate = getConfig().getDouble("donatorSurvivalAmountToGive");
+    public double rate = getConfig().getDouble("semiCreativeAmountToGive");
+    public double donatorRate = getConfig().getDouble("donatorSemiCreativeAmountToGive");
+    public double survivalWorldRate = getConfig().getDouble("survivalAmountToGive");
+    public double survivalWorldDonatorRate = getConfig().getDouble("donatorSurvivalAmountToGive");
 
-    private static final Logger log = Logger.getLogger("Minecraft");
+    public static final Logger log = Logger.getLogger("Minecraft");
     private File config = new File(getDataFolder(), "config.yml");
     private BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
-    private Map<String, Integer> taskID = new HashMap<String, Integer>();
+
 
 
     @Override
@@ -48,7 +49,7 @@ public class CashMoney extends JavaPlugin implements Listener {
         }
         if(!setupEconomy()){
             log.severe((String.format("[%s] - Your server doesn't have Vault installed. Disabling plugin.", getDescription().getName())));
-            //getServer().getPluginManager().disablePlugin(this);
+            getServer().getPluginManager().disablePlugin(this);
         }
 
         //Setup the base command--/pr
@@ -75,6 +76,9 @@ public class CashMoney extends JavaPlugin implements Listener {
     public void onPLayerJoin(final PlayerJoinEvent event){
         final Player p = event.getPlayer();
 
+        if(checkAfk){
+            log.info("True!");
+        }
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new AFKListener(this, event.getPlayer()), 0, 2*20);
 
         if(p.hasPermission("ipwnage.rate.donator")){
@@ -82,29 +86,30 @@ public class CashMoney extends JavaPlugin implements Listener {
             final int tid = getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
                 public void run() {
                     if(logConsole){
-                        log.info(String.format("[%s] %s just recieved payment of: %d", getName(), p.getName(), donatorRate));
+                        log.info(String.format("[%s] %s just recieved payment of: %f", getName(), p.getName(), donatorRate));
                     }
                     //Yes. I know this method is deprecated, but it works.
                     if(measeagePlayer){
-                        p.sendMessage(ChatColor.DARK_GREEN + String.format("[iPwnAge Rewards] You just recieved %d for playing on the server! Thanks!", donatorRate));
+                        p.sendMessage(ChatColor.DARK_GREEN + String.format("[iPwnAge Rewards] You just recieved %f for playing on the server! Thanks!", donatorRate));
                     }
                     econ.depositPlayer(event.getPlayer().getName(), donatorRate);
                 }
             }, 0, delay);
             taskID.put(event.getPlayer().getName(), tid);
+            new AFKListener().tid = tid;
 
         }else{
-        //Ethier you have the permission or you don't. No need for this if/else to go any further.
-            //Rate for non-donators.
+        //Ethier you have the permission or you don't. No need for this if/else to go any further
+        //Rate for non-donators.
             final int tid = getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
                 public void run() {
 
                     if(logConsole){
-                        log.info(String.format("[%s] %s just recieved payment of: %d", getName(), event.getPlayer(), rate));
+                        log.info(String.format("[%s] %s just receiving payment of: %f", getName(), event.getPlayer().getName(), rate));
                     }
 
                     if(measeagePlayer){
-                        p.sendMessage(ChatColor.DARK_GREEN + String.format("[iPwnAge Rewards] You just recieved %d for playing on the server! Thanks!", rate));
+                        p.sendMessage(ChatColor.DARK_GREEN + String.format("[iPwnAge Rewards] You just receiving %f for playing on the server! Thanks!", rate));
                     }
                     //Yes. I know this method is deprecated, but it works.
                     econ.depositPlayer(event.getPlayer().getName(), rate);
@@ -121,9 +126,9 @@ public class CashMoney extends JavaPlugin implements Listener {
         }
         if(pi.containsKey(e.getPlayer())){
             pi.remove(e.getPlayer());
-            pi.put(e.getPlayer(), 0);
+            pi.put(e.getPlayer(), 0.0);
         }else{
-            pi.put(e.getPlayer(), 0);
+            pi.put(e.getPlayer(), 0.0);
         }
 
     }
