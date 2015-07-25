@@ -35,7 +35,6 @@ public class CashMoney extends JavaPlugin implements Listener {
 
     private static final Logger log = Logger.getLogger("Minecraft");
     private File config = new File(getDataFolder(), "config.yml");
-    private File TextPrompt = new File(getDataFolder(), "TextPrompts.txt");
     private BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
     private Map<String, Integer> taskID = new HashMap<String, Integer>();
 
@@ -46,10 +45,6 @@ public class CashMoney extends JavaPlugin implements Listener {
         if(!config.exists()) {
             this.saveDefaultConfig();
             log.info((String.format("[%s] - Didn't find a configuration file, will make one.", getDescription().getName())));
-        }
-        if(!TextPrompt.exists()) {
-            this.saveResource("TextPrompts.txt", false);
-            log.info((String.format("[%s] - Didn't find a Text Prompt file, will make one.", getDescription().getName())));
         }
         if(!setupEconomy()){
             log.severe((String.format("[%s] - Your server doesn't have Vault installed. Disabling plugin.", getDescription().getName())));
