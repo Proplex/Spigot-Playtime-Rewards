@@ -1,11 +1,14 @@
 package com.ipwnage.playtimerewards;
 
+import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,22 +20,21 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 public class CashMoney extends JavaPlugin implements Listener {
-    private static final Logger log = Logger.getLogger("Minecraft");
     public static Economy econ = null;
+    public static boolean isAfk = false;
+
+    private static final Logger log = Logger.getLogger("Minecraft");
     private File config = new File(getDataFolder(), "config.yml");
     private File TextPrompt = new File(getDataFolder(), "TextPrompts.txt");
     private BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
     private Map<String, Integer> taskID = new HashMap<String, Integer>();
 
-
-
     //The formula for interval is secconds * ticks(Make this 20). I.E: 60 * 20
     protected long interval = 60 * 20;
-    //The amount of money each player will get each interval.
     protected double rate = 0.5;
-    //The amount of money each donator will recieve.
     protected double donatorRate = 1.5;
-
+    protected double survivalWorldRate = 0.1;
+    protected double survivalWorlDonatorRate = 0.2;
 
     @Override
     public void onEnable() {
@@ -109,7 +111,25 @@ public class CashMoney extends JavaPlugin implements Listener {
 
             taskID.put(event.getPlayer().getName(), tid);
         }
+
     }
+
+
+    @EventHandler
+    public void onPlayerMove(final PlayerMoveEvent e) throws InterruptedException {
+        //Store there current x y and z in variables.
+        final int xPos = (int) e.getFrom().getX();
+
+
+        if(yawChange || pitchChange){
+            e.getPlayer().sendMessage(ChatColor.AQUA + "You are not afk.");
+        }else{
+            e.getPlayer().sendMessage(ChatColor.RED  + "You are afk.");
+        }
+
+
+    }
+
 
     @EventHandler
     public void onPLayerLeave(PlayerQuitEvent e){
@@ -120,6 +140,11 @@ public class CashMoney extends JavaPlugin implements Listener {
         }
     }
 
+
+
+    public boolean isAfk(String playerName){
+        return true;
+    }
 
 
 }
