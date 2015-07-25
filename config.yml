@@ -11,8 +11,14 @@ messagePlayer: true
 ## Whether or not to monitor a player's AFK status (currently only CommandBook supported)
 checkForAFK: true
 
-## How long a player needs to be on to receive the payment, in minutes.
-timeInterval: 60
+## How long, in secconds, before a player will recieve payment.
+delay: 60
 
-## The amount of in-game currency to give to a player after timeInterval
-amountToGive: 30
+## The amount of in-game currency to give to a player after delay.
+survivalAmountToGive: 0.10
+semiCreativeAmountToGive: 0.50
+donatorSurvivalAmountToGive: 0.30
+donatorSemiCreativeAmountToGive: 1.0
+
+## The delay, in secconds, before a player is marked as AFK.
+timeout: 15;
