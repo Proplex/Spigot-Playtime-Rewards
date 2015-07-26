@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.util.Properties;
 
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,13 +29,56 @@ public class CommandBase  implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
         if (command.getName().equalsIgnoreCase("pr")) {
-            if (player.hasPermission("ipwnage.staff") || player.isOp()) {
+            if (player.isOp()) {
                 if (args[0] == null) {
                     //Explain how to use the command here.
                 }
 
                 if (args[0] == "rate") {
-                    //Set a variable here.
+                    if(args[1] == null){
+                        //Explain how to use rate here
+                        player.sendMessage("Proper usage is: /pr rate <variable> <decimal>");
+                        player.sendMessage("Available variables: normal, normalDonator, survival, survivalDonator");
+                    }
+
+
+                    if(args[1] == "normal" ){
+                        if(args[2] == null){
+                            player.sendMessage("Proper usage is: /pr rate <variable> <decimal>");
+                        }
+
+                        double args2 = Double.parseDouble(args[2]);
+                        plugin.rate = args2;
+
+
+                    }else if(args[1] == "normalDonator"){
+                        if(args[2] == null){
+                            player.sendMessage("Proper usage is: /pr rate <variable> <decimal>");
+                        }
+
+                        double args2 = Double.parseDouble(args[2]);
+                        plugin.rate = args2;
+
+                    }else if(args[1] == "survival"){
+                        if(args[2] == null){
+                            player.sendMessage("Proper usage is: /pr rate <variable> <decimal>");
+                        }
+
+                        double args2 = Double.parseDouble(args[2]);
+                        plugin.rate = args2;
+
+                    }else if(args[1] == "survivalDonator"){
+                        if(args[2] == null){
+                            player.sendMessage("Proper usage is: /pr rate <variable> <decimal>");
+                        }
+
+                        double args2 = Double.parseDouble(args[2]);
+                        plugin.rate = args2;
+
+
+                    }else{
+                        player.sendMessage("Proper usage is: /pr rate <variable> <decimal>");
+                    }
                 }
             }
             return true;

@@ -52,7 +52,6 @@ public class CashMoney extends JavaPlugin implements Listener {
             getServer().getPluginManager().disablePlugin(this);
         }
 
-        //Setup the base command--/pr
         getCommand("pr").setExecutor(new CommandBase(this));
     }
     @Override
