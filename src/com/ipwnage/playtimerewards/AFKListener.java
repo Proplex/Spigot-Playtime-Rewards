@@ -29,13 +29,10 @@ public class AFKListener implements Runnable{
         } else {
             double value = cashMoney.pi.get(p) + 1;
             cashMoney.pi.remove(p);
-            cashMoney.log.info("Added second!");
             cashMoney.pi.put(p, value);
-            cashMoney.log.info(cashMoney.pi.get(p).toString());
         }
         if (cashMoney.pi.containsKey(p)) {
             double value = cashMoney.pi.get(p);
-            cashMoney.log.info("TIMEOUT CONF: " + cashMoney.timeout);
             if (value >= cashMoney.timeout) {
                 isAfk = true;
                 if(cashMoney.taskID.containsKey(p.getName())){
@@ -62,7 +59,7 @@ public class AFKListener implements Runnable{
                             }
                             cashMoney.econ.depositPlayer(p.getName(), cashMoney.donatorRate);
                         }
-                    }, 0, cashMoney.delay);
+                    }, cashMoney.delay, cashMoney.delay);
                     cashMoney.taskID.put(p.getName(), tid);
                     p.sendMessage(ChatColor.DARK_GREEN + "[iPwnAge]" + ChatColor.AQUA +  "You are no longer AFK; you are once again receiving money for playing.");
 
@@ -83,7 +80,7 @@ public class AFKListener implements Runnable{
                             //Yes. I know this method is deprecated, but it works.
                             cashMoney.econ.depositPlayer(p.getName(), cashMoney.rate);
                         }
-                    }, 0, cashMoney.delay);
+                    }, cashMoney.delay, cashMoney.delay);
                     cashMoney.taskID.put(p.getName(), tid);
                     p.sendMessage(ChatColor.DARK_GREEN + "[iPwnAge]" + ChatColor.AQUA +  "You are no longer AFK; you are once again receiving money for playing.");
                 }
