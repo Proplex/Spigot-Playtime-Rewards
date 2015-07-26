@@ -53,6 +53,7 @@ public class CommandBase  implements CommandExecutor {
 
                         double args2 = Double.parseDouble(args[2]);
                         plugin.rate = args2;
+                        plugin.getConfig().set("semiCreativeAmountToGive", args2);
 
 
                     }else if(args[1] == "normalDonator"){
@@ -62,8 +63,8 @@ public class CommandBase  implements CommandExecutor {
 
                         double args2 = Double.parseDouble(args[2]);
                         plugin.donatorRate = args2;
-
-                        Bukkit.broadcast(String.format("%s just set the rate of normal donator to %f",sender.getName(),args2),"ipwnage.alerts.recieve");
+                        plugin.getConfig().set("donatorSemiCreativeAmountToGive", args2);
+                        //no u; Bukkit.broadcast(String.format("%s just set the rate of normal donator to %f",sender.getName(),args2),"ipwnage.alerts.recieve");
 
 
                     }else if(args[1] == "survival"){
@@ -73,6 +74,7 @@ public class CommandBase  implements CommandExecutor {
 
                         double args2 = Double.parseDouble(args[2]);
                         plugin.survivalWorldRate = args2;
+                        plugin.getConfig().set("survivalAmountToGive", args2);
 
                     }else if(args[1] == "survivalDonator"){
                         if(args[2] == null){
@@ -81,6 +83,7 @@ public class CommandBase  implements CommandExecutor {
 
                         double args2 = Double.parseDouble(args[2]);
                         plugin.survivalWorldDonatorRate = args2;
+                        plugin.getConfig().set("donatorSurvivalAmountToGive", args2);
 
 
                     }else{
