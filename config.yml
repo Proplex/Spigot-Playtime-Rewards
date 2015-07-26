@@ -8,11 +8,11 @@ logToConsole: true
 ## Whether or not to send a message to a player when they receive money for playtime.
 messagePlayer: true
 
-## Whether or not to monitor a player's AFK status (currently only CommandBook supported)
+## Whether or not to monitor a player's AFK status
 checkForAFK: true
 
-## How long, in secconds, before a player will recieve payment.
-delay: 60
+## How long, in seconds, before a player will receive payment.
+delay: 20
 
 ## The amount of in-game currency to give to a player after delay.
 survivalAmountToGive: 0.10
@@ -20,5 +20,5 @@ semiCreativeAmountToGive: 0.50
 donatorSurvivalAmountToGive: 0.30
 donatorSemiCreativeAmountToGive: 1.0
 
-## The delay, in secconds, before a player is marked as AFK.
-timeout: 15;
+## The delay, in seconds, before a player is marked as AFK.
+timeout: 15

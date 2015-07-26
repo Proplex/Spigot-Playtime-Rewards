@@ -28,7 +28,7 @@ public class CashMoney extends JavaPlugin implements Listener {
     public boolean logConsole  = getConfig().getBoolean("logToConsole");
     public boolean measeagePlayer = getConfig().getBoolean("messagePlayer");
     public boolean checkAfk = getConfig().getBoolean("checkForAfk");
-    public int delay = getConfig().getInt("delay");
+    public int delay = getConfig().getInt("delay") * 20;
     public double rate = getConfig().getDouble("semiCreativeAmountToGive");
     public double donatorRate = getConfig().getDouble("donatorSemiCreativeAmountToGive");
     public double survivalWorldRate = getConfig().getDouble("survivalAmountToGive");
@@ -105,7 +105,7 @@ public class CashMoney extends JavaPlugin implements Listener {
                 public void run() {
 
                     if(logConsole){
-                        log.info(String.format("[%s] %s just receiving payment of: %f", getName(), event.getPlayer().getName(), rate));
+                        log.info(String.format("[%s] %s just received payment of: %f", getName(), event.getPlayer().getName(), rate));
                     }
 
                     if(measeagePlayer){
