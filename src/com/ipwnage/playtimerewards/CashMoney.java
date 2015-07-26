@@ -88,7 +88,7 @@ public class CashMoney extends JavaPlugin implements Listener {
                     }
                     //Yes. I know this method is deprecated, but it works.
                     if(measeagePlayer){
-                        p.sendMessage(ChatColor.DARK_GREEN + String.format("[iPwnAge Rewards] You just recieved %f for playing on the server! Thanks!", donatorRate));
+                        p.sendMessage(ChatColor.DARK_GREEN + String.format("[%s] You just recieved %f for playing on the server! Thanks!",getServer().getName(), donatorRate));
                     }
                     econ.depositPlayer(event.getPlayer().getName(), donatorRate);
                 }
@@ -107,7 +107,7 @@ public class CashMoney extends JavaPlugin implements Listener {
                     }
 
                     if(measeagePlayer){
-                        p.sendMessage(ChatColor.DARK_GREEN + String.format("[iPwnAge Rewards] You just receiving %f for playing on the server! Thanks!", rate));
+                        p.sendMessage(ChatColor.DARK_GREEN + String.format("[%s] You just receiving %f for playing on the server! Thanks!",getServer().getName(), rate));
                     }
                     //Yes. I know this method is deprecated, but it works.
                     econ.depositPlayer(event.getPlayer().getName(), rate);

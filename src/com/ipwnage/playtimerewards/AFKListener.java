@@ -36,7 +36,7 @@ public class AFKListener implements Runnable{
             if (value >= cashMoney.timeout) {
                 isAfk = true;
                 if(cashMoney.taskID.containsKey(p.getName())){
-                	p.sendMessage(ChatColor.DARK_GREEN + "[iPwnAge]" + ChatColor.AQUA +  " You are AFK; you are" + ChatColor.RED + " not"+ ChatColor.AQUA+ " receiving money for playing.");
+                	p.sendMessage(String.format(ChatColor.DARK_GREEN + "[%s]" + ChatColor.AQUA +  " You are AFK; you are" + ChatColor.RED + " not"+ ChatColor.AQUA+ " receiving money for playing.", cashMoney.getServer().getName()));
                     int tid = cashMoney.taskID.get(p.getPlayer().getName());
                     cashMoney.getServer().getScheduler().cancelTask(tid);
                     cashMoney.taskID.remove(p.getName());
@@ -82,7 +82,7 @@ public class AFKListener implements Runnable{
                         }
                     }, cashMoney.delay, cashMoney.delay);
                     cashMoney.taskID.put(p.getName(), tid);
-                    p.sendMessage(ChatColor.DARK_GREEN + "[iPwnAge]" + ChatColor.AQUA +  "You are no longer AFK; you are once again receiving money for playing.");
+                    p.sendMessage(String.format(ChatColor.DARK_GREEN + "[%s]" + ChatColor.AQUA +  " You are no longer AFK; you are once again receiving money for playing.", cashMoney.getServer().getName()));
                 }
 
             }
