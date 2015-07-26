@@ -92,11 +92,18 @@ public class CommandBase  implements CommandExecutor {
                 if(args[0] == "reload"){
 
                     player.sendMessage(String.format("Reloading %s", plugin.getName()));
+                    plugin.reloadConfig();
+                    plugin.timeout = plugin.getConfig().getInt("timeout") / 2;
+                    plugin.logConsole  = plugin.getConfig().getBoolean("logToConsole");
+                    plugin.measeagePlayer = plugin.getConfig().getBoolean("messagePlayer");
+                    plugin.checkAfk = plugin.getConfig().getBoolean("checkForAfk");
+                    plugin.delay = plugin.getConfig().getInt("delay") * 20;
+                    plugin.rate = plugin.getConfig().getDouble("semiCreativeAmountToGive");
+                    plugin.donatorRate = plugin.getConfig().getDouble("donatorSemiCreativeAmountToGive");
+                    plugin.survivalWorldRate = plugin.getConfig().getDouble("survivalAmountToGive");
+                    plugin.survivalWorldDonatorRate = plugin.getConfig().getDouble("donatorSurvivalAmountToGive");
 
-                    plugin.getPluginLoader().disablePlugin(plugin);
-                    plugin.getPluginLoader().enablePlugin(plugin);
-
-                    player.sendMessage(String.format("%s was successfully reloaded", plugin.getName()));
+                    player.sendMessage(String.format("%s sucessfully reloaded configuration", plugin.getName()));
 
                 }
 
