@@ -8,6 +8,7 @@ import java.io.Reader;
 import java.util.Properties;
 
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -32,6 +33,9 @@ public class CommandBase  implements CommandExecutor {
             if (player.isOp()) {
                 if (args[0] == null) {
                     //Explain how to use the command here.
+
+                    player.sendMessage("Available commands are: rate, reload, cancelplayer, enableplayer");
+                    player.sendMessage("Ex: /pr rate normal 1.5");
                 }
 
                 if (args[0] == "rate") {
@@ -59,6 +63,9 @@ public class CommandBase  implements CommandExecutor {
                         double args2 = Double.parseDouble(args[2]);
                         plugin.donatorRate = args2;
 
+                        Bukkit.broadcast(String.format("%s just set the rate of normal donator to %f",sender.getName(),args2),"ipwnage.alerts.recieve");
+
+
                     }else if(args[1] == "survival"){
                         if(args[2] == null){
                             player.sendMessage("Proper usage is: /pr rate <variable> <decimal>");
@@ -80,7 +87,31 @@ public class CommandBase  implements CommandExecutor {
                         player.sendMessage("Proper usage is: /pr rate <variable> <decimal>");
                     }
                 }
+
+
+                if(args[0] == "reload"){
+
+                    player.sendMessage(String.format("Reloading %s", plugin.getName()));
+
+                    plugin.getPluginLoader().disablePlugin(plugin);
+                    plugin.getPluginLoader().enablePlugin(plugin);
+
+                    player.sendMessage(String.format("%s was successfully reloaded", plugin.getName()));
+
+                }
+
+                if(args[0] == "canelplayer"){
+                    if(args[1] == null){
+                        //Explain how to use cancelplayer
+                    }
+                }
+
+                else{
+                    player.sendMessage("Unknown command! Try /pr for a list of available commands.");
+                }
+
             }
+            player.sendMessage("You do not have permission!");
             return true;
         }
         return false;

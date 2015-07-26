@@ -1,7 +1,7 @@
 name: PlaytimeRewards
 main: com.ipwnage.playtimerewards.CashMoney
 author: [Drew1895, Protocol_7]
-version: 1.0
+version: 1.1
 depend: [Vault]
 commands:
   pr:

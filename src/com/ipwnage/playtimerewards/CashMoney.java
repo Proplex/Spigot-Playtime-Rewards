@@ -23,6 +23,7 @@ public class CashMoney extends JavaPlugin implements Listener {
     public static Economy econ = null;
     public Map<Player, Double> pi = new HashMap<Player, Double>();
     public Map<String, Integer> taskID = new HashMap<String, Integer>();
+    public static final Logger log = Logger.getLogger("Minecraft");
 
     public int timeout = getConfig().getInt("timeout") / 2;
     public boolean logConsole  = getConfig().getBoolean("logToConsole");
@@ -34,7 +35,6 @@ public class CashMoney extends JavaPlugin implements Listener {
     public double survivalWorldRate = getConfig().getDouble("survivalAmountToGive");
     public double survivalWorldDonatorRate = getConfig().getDouble("donatorSurvivalAmountToGive");
 
-    public static final Logger log = Logger.getLogger("Minecraft");
     private File config = new File(getDataFolder(), "config.yml");
     private BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
 
