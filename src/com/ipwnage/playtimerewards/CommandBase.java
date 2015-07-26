@@ -57,7 +57,7 @@ public class CommandBase  implements CommandExecutor {
                         }
 
                         double args2 = Double.parseDouble(args[2]);
-                        plugin.rate = args2;
+                        plugin.donatorRate = args2;
 
                     }else if(args[1] == "survival"){
                         if(args[2] == null){
@@ -65,7 +65,7 @@ public class CommandBase  implements CommandExecutor {
                         }
 
                         double args2 = Double.parseDouble(args[2]);
-                        plugin.rate = args2;
+                        plugin.survivalWorldRate = args2;
 
                     }else if(args[1] == "survivalDonator"){
                         if(args[2] == null){
@@ -73,7 +73,7 @@ public class CommandBase  implements CommandExecutor {
                         }
 
                         double args2 = Double.parseDouble(args[2]);
-                        plugin.rate = args2;
+                        plugin.survivalWorldDonatorRate = args2;
 
 
                     }else{
