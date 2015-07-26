@@ -18,7 +18,7 @@ public class CommandBase  implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
         if (command.getName().equalsIgnoreCase("pr")) {
-            if (player.isOp()) {
+        	 if(player.hasPermission("playertime.admin")) {
                 if (args[0] == null) {
                     //Explain how to use the command here.
 

@@ -46,7 +46,7 @@ public class AFKListener implements Runnable{
 
             if (isAfk && value <= 1.0){
                 isAfk = false;
-                if(p.hasPermission("ipwnage.rate.donator")){
+                if(p.hasPermission("playertime.rate.donator")){
                     //Rate for donators.
                     final int tid = cashMoney.getServer().getScheduler().scheduleSyncRepeatingTask(cashMoney, new Runnable() {
                         public void run() {

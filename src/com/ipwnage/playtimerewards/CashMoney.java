@@ -79,7 +79,7 @@ public class CashMoney extends JavaPlugin implements Listener {
         }
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new AFKListener(this, event.getPlayer()), 0, 2*20);
 
-        if(p.hasPermission("ipwnage.rate.donator")){
+        if(p.hasPermission("playertime.rate.donator")){
             //Rate for donators.
             final int tid = getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
                 public void run() {
