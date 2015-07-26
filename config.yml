@@ -3,22 +3,31 @@
 ##################
 
 ## Whether or not to log to the console when a player receives their payment.
-logToConsole: true
+logToConsole: false
 
 ## Whether or not to send a message to a player when they receive money for playtime.
-messagePlayer: true
+messagePlayer: false
 
 ## Whether or not to monitor a player's AFK status
 checkForAFK: true
 
 ## How long, in seconds, before a player will receive payment.
-delay: 20
+delay: 60
 
 ## The amount of in-game currency to give to a player after delay.
-survivalAmountToGive: 0.10
-semiCreativeAmountToGive: 0.50
-donatorSurvivalAmountToGive: 0.30
-donatorSemiCreativeAmountToGive: 1.0
+nonDonatorAmount: 0.10
+donatorAmount: 0.50
 
 ## The delay, in seconds, before a player is marked as AFK.
 timeout: 15
+
+
+##################
+#Message Settings#
+##################
+
+#What your server is called.
+serverName: someServer
+
+#If you opt in to messaging the player type what will get displayed here
+playerMessage:

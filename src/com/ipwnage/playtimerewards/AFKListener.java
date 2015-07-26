@@ -36,7 +36,7 @@ public class AFKListener implements Runnable{
             if (value >= cashMoney.timeout) {
                 isAfk = true;
                 if(cashMoney.taskID.containsKey(p.getName())){
-                	p.sendMessage(String.format(ChatColor.DARK_GREEN + "[%s]" + ChatColor.AQUA +  " You are AFK; you are" + ChatColor.RED + " not"+ ChatColor.AQUA+ " receiving money for playing.", cashMoney.getServer().getName()));
+                	p.sendMessage(String.format(ChatColor.DARK_GREEN + "[%s]" + ChatColor.AQUA +  " You are AFK; you are" + ChatColor.RED + " not"+ ChatColor.AQUA+ " receiving money for playing.", cashMoney.serverName));
                     int tid = cashMoney.taskID.get(p.getPlayer().getName());
                     cashMoney.getServer().getScheduler().cancelTask(tid);
                     cashMoney.taskID.remove(p.getName());
@@ -71,18 +71,18 @@ public class AFKListener implements Runnable{
                         public void run() {
 
                             if(cashMoney.logConsole){
-                                cashMoney.log.info(String.format("[%s] %s just recieved payment of: %f",cashMoney.getName(), p.getName(), cashMoney.rate));
+                                cashMoney.log.info(String.format("[%s] %s just recieved payment of: %f",cashMoney.getName(), p.getName(), cashMoney.regularRate));
                             }
 
                             if(cashMoney.measeagePlayer){
-                                p.sendMessage(net.md_5.bungee.api.ChatColor.DARK_GREEN + String.format("[iPwnAge Rewards] You just received %f for playing on the server! Thanks!", cashMoney.rate));
+                                p.sendMessage(net.md_5.bungee.api.ChatColor.DARK_GREEN + String.format("[iPwnAge Rewards] You just received %f for playing on the server! Thanks!", cashMoney.regularRate));
                             }
                             //Yes. I know this method is deprecated, but it works.
-                            cashMoney.econ.depositPlayer(p.getName(), cashMoney.rate);
+                            cashMoney.econ.depositPlayer(p.getName(), cashMoney.regularRate);
                         }
                     }, cashMoney.delay, cashMoney.delay);
                     cashMoney.taskID.put(p.getName(), tid);
-                    p.sendMessage(String.format(ChatColor.DARK_GREEN + "[%s]" + ChatColor.AQUA +  " You are no longer AFK; you are once again receiving money for playing.", cashMoney.getServer().getName()));
+                    p.sendMessage(String.format(ChatColor.DARK_GREEN + "[%s]" + ChatColor.AQUA +  " You are no longer AFK; you are once again receiving money for playing.", cashMoney.serverName));
                 }
 
             }

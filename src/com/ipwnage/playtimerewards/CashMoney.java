@@ -29,10 +29,11 @@ public class CashMoney extends JavaPlugin implements Listener {
     public boolean measeagePlayer = getConfig().getBoolean("messagePlayer");
     public boolean checkAfk = getConfig().getBoolean("checkForAfk");
     public int delay = getConfig().getInt("delay") * 20;
-    public double rate = getConfig().getDouble("semiCreativeAmountToGive");
-    public double donatorRate = getConfig().getDouble("donatorSemiCreativeAmountToGive");
+    public double regularRate = getConfig().getDouble("nonDonatorAmount");
+    public double donatorRate = getConfig().getDouble("donatorAmount");
     public double survivalWorldRate = getConfig().getDouble("survivalAmountToGive");
     public double survivalWorldDonatorRate = getConfig().getDouble("donatorSurvivalAmountToGive");
+    public String serverName = getConfig().getString("serverName");
 
     private File config = new File(getDataFolder(), "config.yml");
     private BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
@@ -88,7 +89,7 @@ public class CashMoney extends JavaPlugin implements Listener {
                     }
                     //Yes. I know this method is deprecated, but it works.
                     if(measeagePlayer){
-                        p.sendMessage(ChatColor.DARK_GREEN + String.format("[%s] You just recieved %f for playing on the server! Thanks!",getServer().getName(), donatorRate));
+                        p.sendMessage(ChatColor.DARK_GREEN + String.format("[%s] You just recieved %f for playing on the server! Thanks!",serverName, donatorRate));
                     }
                     econ.depositPlayer(event.getPlayer().getName(), donatorRate);
                 }
@@ -103,14 +104,14 @@ public class CashMoney extends JavaPlugin implements Listener {
                 public void run() {
 
                     if(logConsole){
-                        log.info(String.format("[%s] %s just received payment of: %f", getName(), event.getPlayer().getName(), rate));
+                        log.info(String.format("[%s] %s just received payment of: %f", getName(), event.getPlayer().getName(), regularRate));
                     }
 
                     if(measeagePlayer){
-                        p.sendMessage(ChatColor.DARK_GREEN + String.format("[%s] You just receiving %f for playing on the server! Thanks!",getServer().getName(), rate));
+                        p.sendMessage(ChatColor.DARK_GREEN + String.format("[%s] You just receiving %f for playing on the server! Thanks!",serverName, regularRate));
                     }
                     //Yes. I know this method is deprecated, but it works.
-                    econ.depositPlayer(event.getPlayer().getName(), rate);
+                    econ.depositPlayer(event.getPlayer().getName(), regularRate);
                 }
             }, 0, delay);
             taskID.put(event.getPlayer().getName(), tid);

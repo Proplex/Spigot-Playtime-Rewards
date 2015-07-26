@@ -40,7 +40,7 @@ public class CommandBase  implements CommandExecutor {
                         }
 
                         double args2 = Double.parseDouble(args[2]);
-                        plugin.rate = args2;
+                        plugin.regularRate = args2;
                         plugin.getConfig().set("semiCreativeAmountToGive", args2);
 
 
@@ -89,16 +89,16 @@ public class CommandBase  implements CommandExecutor {
                     plugin.measeagePlayer = plugin.getConfig().getBoolean("messagePlayer");
                     plugin.checkAfk = plugin.getConfig().getBoolean("checkForAfk");
                     plugin.delay = plugin.getConfig().getInt("delay") * 20;
-                    plugin.rate = plugin.getConfig().getDouble("semiCreativeAmountToGive");
-                    plugin.donatorRate = plugin.getConfig().getDouble("donatorSemiCreativeAmountToGive");
-                    plugin.survivalWorldRate = plugin.getConfig().getDouble("survivalAmountToGive");
-                    plugin.survivalWorldDonatorRate = plugin.getConfig().getDouble("donatorSurvivalAmountToGive");
+                    plugin.regularRate = plugin.getConfig().getDouble("nonDonatorAmount");
+                    plugin.donatorRate = plugin.getConfig().getDouble("donatorAmount");
+                    plugin.survivalWorldRate = plugin.getConfig().getDouble("survivalAmount");
+                    plugin.survivalWorldDonatorRate = plugin.getConfig().getDouble("donatorSurvivalAmount");
 
                     player.sendMessage(String.format("%s sucessfully reloaded configuration", plugin.getName()));
 
                 }
 
-                if(args[0] == "canelplayer"){
+                if(args[0] == "cancelplayer"){
                     if(args[1] == null){
                         //Explain how to use cancelplayer
                     }
