@@ -25,7 +25,7 @@ public class CashMoney extends JavaPlugin implements Listener {
     public static final Logger log = Logger.getLogger("Minecraft");
     public boolean debug = false;
 
-    public int timeout = getConfig().getInt("timeout") / 2;
+    public int timeout = getConfig().getInt("timeout");
     public boolean logConsole  = getConfig().getBoolean("logToConsole");
     public boolean measeagePlayer = getConfig().getBoolean("messagePlayer");
     public boolean checkAfk = getConfig().getBoolean("checkForAfk");
@@ -79,7 +79,7 @@ public class CashMoney extends JavaPlugin implements Listener {
         if(debug){
             log.info(String.format("Adding player %s to the AFK listener.", event.getPlayer().getName()));
         }
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, new AFKListener(this, event.getPlayer()), 0, 2*20);
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, new AFKListener(this, event.getPlayer()), 0, 1*20);
 
         if(p.hasPermission("playertime.rate.donator")){
             //Rate for donators.

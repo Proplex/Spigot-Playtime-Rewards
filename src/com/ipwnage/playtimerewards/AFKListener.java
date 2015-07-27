@@ -64,7 +64,7 @@ public class AFKListener implements Runnable{
                         }
                     }, cashMoney.delay, cashMoney.delay);
                     cashMoney.taskID.put(p.getName(), tid);
-                    p.sendMessage(String.format(ChatColor.DARK_GREEN + "[%s]" + ChatColor.AQUA +  "You are no longer AFK; you are once again receiving money for playing.",cashMoney.serverName));
+                    p.sendMessage(String.format(ChatColor.DARK_GREEN + "[%s]" + ChatColor.AQUA +  " You are no longer AFK; you are once again receiving money for playing.",cashMoney.serverName));
 
                 }else{
                     if(cashMoney.debug){
