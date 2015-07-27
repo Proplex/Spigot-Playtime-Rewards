@@ -23,6 +23,7 @@ public class CashMoney extends JavaPlugin implements Listener {
     public Map<Player, Double> pi = new HashMap<Player, Double>();
     public Map<String, Integer> taskID = new HashMap<String, Integer>();
     public static final Logger log = Logger.getLogger("Minecraft");
+    public boolean debug = false;
 
     public int timeout = getConfig().getInt("timeout") / 2;
     public boolean logConsole  = getConfig().getBoolean("logToConsole");
@@ -75,13 +76,16 @@ public class CashMoney extends JavaPlugin implements Listener {
     public void onPLayerJoin(final PlayerJoinEvent event){
         final Player p = event.getPlayer();
 
-        if(checkAfk){
-            log.info("True!");
+        if(debug){
+            log.info(String.format("Adding player %s to the AFK listener.", event.getPlayer().getName()));
         }
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new AFKListener(this, event.getPlayer()), 0, 2*20);
 
         if(p.hasPermission("playertime.rate.donator")){
             //Rate for donators.
+            if(debug){
+                log.info(String.format("Adding %s to the money scheduler", event.getPlayer().getName()));
+            }
             final int tid = getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
                 public void run() {
                     if(logConsole){
@@ -100,6 +104,9 @@ public class CashMoney extends JavaPlugin implements Listener {
         }else{
         //Ethier you have the permission or you don't. No need for this if/else to go any further
         //Rate for non-donators.
+            if(debug){
+                log.info(String.format("Adding %s to the money scheduler", event.getPlayer().getName()));
+            }
             final int tid = getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
                 public void run() {
 
@@ -124,9 +131,18 @@ public class CashMoney extends JavaPlugin implements Listener {
             return;
         }
         if(pi.containsKey(e.getPlayer())){
+            if(debug){
+               log.info(String.format("Removing player %s from the hashmap pi", e.getPlayer().getName()));
+            }
             pi.remove(e.getPlayer());
+            if(debug){
+                log.info(String.format("Adding player %s to the hashmap pi, and resetting thier afk value to 0", e.getPlayer().getName()));
+            }
             pi.put(e.getPlayer(), 0.0);
         }else{
+            if(debug){
+                log.info(String.format("Adding player %s to the hashmap pi, and setting thier afk value to 0", e.getPlayer().getName()));
+            }
             pi.put(e.getPlayer(), 0.0);
         }
 
@@ -135,8 +151,17 @@ public class CashMoney extends JavaPlugin implements Listener {
     @EventHandler
     public void onPLayerLeave(PlayerQuitEvent e){
         if(taskID.containsKey(e.getPlayer().getName())){
+            if(debug){
+                log.info(String.format("Grabbing the tid for player %s from the hashmap tid", e.getPlayer().getName()));
+            }
             int tid = taskID.get(e.getPlayer().getName());
+            if(debug){
+                log.info(String.format("Canceling the scheduler for %s", e.getPlayer().getName()));
+            }
             getServer().getScheduler().cancelTask(tid);
+            if(debug){
+                log.info(String.format("Removing player %s from the hasmap tid", e.getPlayer().getName()));
+            }
             taskID.remove(e.getPlayer().getName());
         }
     }

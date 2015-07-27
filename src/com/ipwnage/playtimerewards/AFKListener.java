@@ -48,6 +48,9 @@ public class AFKListener implements Runnable{
                 isAfk = false;
                 if(p.hasPermission("playertime.rate.donator")){
                     //Rate for donators.
+                    if(cashMoney.debug){
+                        cashMoney.log.info(String.format("Adding %s to the money scheduler", p.getPlayer().getName()));
+                    }
                     final int tid = cashMoney.getServer().getScheduler().scheduleSyncRepeatingTask(cashMoney, new Runnable() {
                         public void run() {
                             if(cashMoney.logConsole){
@@ -64,6 +67,9 @@ public class AFKListener implements Runnable{
                     p.sendMessage(String.format(ChatColor.DARK_GREEN + "[%s]" + ChatColor.AQUA +  "You are no longer AFK; you are once again receiving money for playing.",cashMoney.serverName));
 
                 }else{
+                    if(cashMoney.debug){
+                        cashMoney.log.info(String.format("Adding %s to the money scheduler", p.getPlayer().getName()));
+                    }
                     //Ethier you have the permission or you don't. No need for this if/else to go any further
                     //Rate for non-donators.
                     final int tid = cashMoney.getServer().getScheduler().scheduleSyncRepeatingTask(cashMoney, new Runnable() {

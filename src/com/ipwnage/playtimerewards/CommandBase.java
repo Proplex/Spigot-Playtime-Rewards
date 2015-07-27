@@ -97,6 +97,26 @@ public class CommandBase  implements CommandExecutor {
                     player.sendMessage(String.format("%s sucessfully reloaded configuration", plugin.serverName));
 
                 }
+                 if(args[0] == "debug"){
+                     if(args[1] == "on"){
+                         //Do somethign there
+                         plugin.debug = true;
+
+
+
+
+
+                     }else if(args[1] == "off"){
+                         //Do something here.
+                         if(plugin.debug = true){
+                             plugin.debug = false;
+                         }
+
+
+                     }else{
+                         //Explain use here.
+                     }
+                 }
 
                 if(args[0] == "cancelplayer"){
                     if(args[1] == null){
