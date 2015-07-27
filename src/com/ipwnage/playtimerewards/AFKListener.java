@@ -55,13 +55,13 @@ public class AFKListener implements Runnable{
                             }
                             //Yes. I know this method is deprecated, but it works.
                             if(cashMoney.measeagePlayer){
-                                p.sendMessage(net.md_5.bungee.api.ChatColor.DARK_GREEN + String.format("[iPwnAge Rewards] You just received %f for playing on the server! Thanks!", cashMoney.donatorRate));
+                                p.sendMessage(net.md_5.bungee.api.ChatColor.DARK_GREEN + String.format("[%s] You just received %f for playing on the server! Thanks!",cashMoney.serverName, cashMoney.donatorRate));
                             }
                             cashMoney.econ.depositPlayer(p.getName(), cashMoney.donatorRate);
                         }
                     }, cashMoney.delay, cashMoney.delay);
                     cashMoney.taskID.put(p.getName(), tid);
-                    p.sendMessage(ChatColor.DARK_GREEN + "[iPwnAge]" + ChatColor.AQUA +  "You are no longer AFK; you are once again receiving money for playing.");
+                    p.sendMessage(String.format(ChatColor.DARK_GREEN + "[%s]" + ChatColor.AQUA +  "You are no longer AFK; you are once again receiving money for playing.",cashMoney.serverName));
 
                 }else{
                     //Ethier you have the permission or you don't. No need for this if/else to go any further
@@ -75,7 +75,7 @@ public class AFKListener implements Runnable{
                             }
 
                             if(cashMoney.measeagePlayer){
-                                p.sendMessage(net.md_5.bungee.api.ChatColor.DARK_GREEN + String.format("[iPwnAge Rewards] You just received %f for playing on the server! Thanks!", cashMoney.regularRate));
+                                p.sendMessage(net.md_5.bungee.api.ChatColor.DARK_GREEN + String.format("[%s] You just received %f for playing on the server! Thanks!",cashMoney.serverName, cashMoney.regularRate));
                             }
                             //Yes. I know this method is deprecated, but it works.
                             cashMoney.econ.depositPlayer(p.getName(), cashMoney.regularRate);

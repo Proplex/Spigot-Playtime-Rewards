@@ -52,7 +52,7 @@ public class CommandBase  implements CommandExecutor {
                         double args2 = Double.parseDouble(args[2]);
                         plugin.donatorRate = args2;
                         plugin.getConfig().set("donatorSemiCreativeAmountToGive", args2);
-                        //no u; Bukkit.broadcast(String.format("%s just set the rate of normal donator to %f",sender.getName(),args2),"ipwnage.alerts.recieve");
+
 
 
                     }else if(args[1] == "survival"){
@@ -82,7 +82,7 @@ public class CommandBase  implements CommandExecutor {
 
                 if(args[0] == "reload"){
 
-                    player.sendMessage(String.format("Reloading %s", plugin.getName()));
+                    player.sendMessage(String.format("Reloading %s", plugin.serverName));
                     plugin.reloadConfig();
                     plugin.timeout = plugin.getConfig().getInt("timeout") / 2;
                     plugin.logConsole  = plugin.getConfig().getBoolean("logToConsole");
@@ -94,7 +94,7 @@ public class CommandBase  implements CommandExecutor {
                     plugin.survivalWorldRate = plugin.getConfig().getDouble("survivalAmount");
                     plugin.survivalWorldDonatorRate = plugin.getConfig().getDouble("donatorSurvivalAmount");
 
-                    player.sendMessage(String.format("%s sucessfully reloaded configuration", plugin.getName()));
+                    player.sendMessage(String.format("%s sucessfully reloaded configuration", plugin.serverName));
 
                 }
 
