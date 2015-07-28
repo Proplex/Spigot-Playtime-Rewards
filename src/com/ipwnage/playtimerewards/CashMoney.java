@@ -1,7 +1,6 @@
 package com.ipwnage.playtimerewards;
 
 import net.milkbowl.vault.economy.Economy;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,7 +10,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
 
 import java.io.File;
 import java.util.HashMap;
@@ -37,7 +35,6 @@ public class CashMoney extends JavaPlugin implements Listener {
     public String serverName = getConfig().getString("serverName");
 
     private File config = new File(getDataFolder(), "config.yml");
-    private BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
 
 
 
