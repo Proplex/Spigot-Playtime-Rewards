@@ -49,18 +49,18 @@ public class AFKListener implements Runnable{
                 if(p.hasPermission("playertime.rate.donator")){
                     //Rate for donators.
                     if(cashMoney.debug){
-                        cashMoney.log.info(String.format("Adding %s to the money scheduler", p.getPlayer().getName()));
+                        CashMoney.log.info(String.format("Adding %s to the money scheduler", p.getPlayer().getName()));
                     }
                     final int tid = cashMoney.getServer().getScheduler().scheduleSyncRepeatingTask(cashMoney, new Runnable() {
                         public void run() {
                             if(cashMoney.logConsole){
-                                cashMoney.log.info(String.format("[%s] %s just received payment of: %f",cashMoney.getName(), p.getName(), cashMoney.donatorRate));
+                                CashMoney.log.info(String.format("[%s] %s just received payment of: %f",cashMoney.getName(), p.getName(), cashMoney.donatorRate));
                             }
                             //Yes. I know this method is deprecated, but it works.
                             if(cashMoney.measeagePlayer){
                                 p.sendMessage(net.md_5.bungee.api.ChatColor.DARK_GREEN + String.format("[%s] You just received %f for playing on the server! Thanks!",cashMoney.serverName, cashMoney.donatorRate));
                             }
-                            cashMoney.econ.depositPlayer(p.getName(), cashMoney.donatorRate);
+                            CashMoney.econ.depositPlayer(p.getName(), cashMoney.donatorRate);
                         }
                     }, cashMoney.delay, cashMoney.delay);
                     cashMoney.taskID.put(p.getName(), tid);
@@ -68,7 +68,7 @@ public class AFKListener implements Runnable{
 
                 }else{
                     if(cashMoney.debug){
-                        cashMoney.log.info(String.format("Adding %s to the money scheduler", p.getPlayer().getName()));
+                        CashMoney.log.info(String.format("Adding %s to the money scheduler", p.getPlayer().getName()));
                     }
                     //Ethier you have the permission or you don't. No need for this if/else to go any further
                     //Rate for non-donators.
@@ -77,14 +77,14 @@ public class AFKListener implements Runnable{
                         public void run() {
 
                             if(cashMoney.logConsole){
-                                cashMoney.log.info(String.format("[%s] %s just recieved payment of: %f",cashMoney.getName(), p.getName(), cashMoney.regularRate));
+                                CashMoney.log.info(String.format("[%s] %s just recieved payment of: %f",cashMoney.getName(), p.getName(), cashMoney.regularRate));
                             }
 
                             if(cashMoney.measeagePlayer){
                                 p.sendMessage(net.md_5.bungee.api.ChatColor.DARK_GREEN + String.format("[%s] You just received %f for playing on the server! Thanks!",cashMoney.serverName, cashMoney.regularRate));
                             }
                             //Yes. I know this method is deprecated, but it works.
-                            cashMoney.econ.depositPlayer(p.getName(), cashMoney.regularRate);
+                            CashMoney.econ.depositPlayer(p.getName(), cashMoney.regularRate);
                         }
                     }, cashMoney.delay, cashMoney.delay);
                     cashMoney.taskID.put(p.getName(), tid);

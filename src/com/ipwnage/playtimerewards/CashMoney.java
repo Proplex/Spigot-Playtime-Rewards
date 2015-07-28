@@ -37,7 +37,6 @@ public class CashMoney extends JavaPlugin implements Listener {
     public String serverName = getConfig().getString("serverName");
 
     private File config = new File(getDataFolder(), "config.yml");
-    private BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
 
 
 
