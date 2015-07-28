@@ -115,7 +115,7 @@ public class CashMoney extends JavaPlugin implements Listener {
                     }
 
                     if(measeagePlayer){
-                        p.sendMessage(ChatColor.DARK_GREEN + String.format("[%s] You just receiving %f for playing on the server! Thanks!",serverName, regularRate));
+                        p.sendMessage(ChatColor.DARK_GREEN + String.format("[%s] You just received %f for playing on the server! Thanks!",serverName, regularRate));
                     }
                     //Yes. I know this method is deprecated, but it works.
                     econ.depositPlayer(event.getPlayer().getName(), regularRate);
