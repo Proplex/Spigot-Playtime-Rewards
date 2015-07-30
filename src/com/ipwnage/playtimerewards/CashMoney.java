@@ -55,6 +55,7 @@ public class CashMoney extends JavaPlugin implements Listener {
         AFKListener afkcheck = new AFKListener(this);
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         scheduler.scheduleSyncRepeatingTask(this, afkcheck, 20, 20);
+        afkcheck.testfunc("SparkAI");
         
     }
     @Override
