@@ -1,6 +1,5 @@
 package com.ipwnage.playtimerewards;
 
-import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -49,8 +48,8 @@ public class AFKListener implements Runnable {
 		}
 	}
 
-	public boolean testfunc(String username) {
-		return data.playerExists("SparkAI");
+	public void purgePlayer(String username) {
+		data.clearPlayer(username);
 	}
 
 }

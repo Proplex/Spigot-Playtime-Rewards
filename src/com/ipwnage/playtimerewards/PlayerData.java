@@ -19,7 +19,6 @@ public class PlayerData {
 	
 	public Location getPlayerLocation(String username) {
 		return playerlocationdata.get(username);
-		
 	}
 	
 	public void storePlayerTimestamp(String username, Long timestamp) {
@@ -36,5 +35,11 @@ public class PlayerData {
 	
 	public Boolean isAFK(String username) {
 		return playerafk.get(username);
+	}
+	
+	public void clearPlayer(String username) {
+		playerlocationdata.remove(username);
+		playerafk.remove(username);
+		playertimestampdata.remove(username);
 	}
 }
