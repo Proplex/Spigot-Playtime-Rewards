@@ -18,7 +18,6 @@ public class CashMoney extends JavaPlugin implements Listener {
 	public static Economy econ = null;
 	public static final Logger log = Logger.getLogger("Minecraft");
 	public boolean debug = false;
-
 	public int timeout = getConfig().getInt("timeout");
 	public boolean logConsole  = getConfig().getBoolean("logToConsole");
 	public boolean measeagePlayer = getConfig().getBoolean("messagePlayer");
@@ -29,6 +28,7 @@ public class CashMoney extends JavaPlugin implements Listener {
 	public double survivalWorldRate = getConfig().getDouble("survivalAmountToGive");
 	public double survivalWorldDonatorRate = getConfig().getDouble("donatorSurvivalAmountToGive");
 	public String serverName = getConfig().getString("serverName");
+
 	private AFKListener afkcheck;
 	private PlayerData data = new PlayerData();
 	private File config = new File(getDataFolder(), "config.yml");
@@ -48,7 +48,7 @@ public class CashMoney extends JavaPlugin implements Listener {
 		}
 
 		getCommand("pr").setExecutor(new CommandBase(this));
-		afkcheck = new AFKListener(data);
+		afkcheck = new AFKListener(data, this);
 		BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
 		scheduler.scheduleSyncRepeatingTask(this, afkcheck, 20, 20);
 		scheduler.scheduleSyncRepeatingTask(this, new Runnable() {

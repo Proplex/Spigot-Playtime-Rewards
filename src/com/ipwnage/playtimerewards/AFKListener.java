@@ -2,34 +2,43 @@ package com.ipwnage.playtimerewards;
 
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 
 public class AFKListener implements Runnable {
 	private PlayerData data;
+	private CashMoney cm;
 
-	public AFKListener(PlayerData data){
+	public AFKListener(PlayerData data, CashMoney cm){
 		this.data = data;
+		this.cm = cm;
 	}
 
 	@Override
 	public void run() {
 		monitorAFK();
 	}
-	
+
 	public void monitorAFK() {
 		for(Player player : Bukkit.getOnlinePlayers()) {
 			String username = player.getName();
 			Location location = player.getLocation();
 			if (data.playerExists(username)) {
 				if (data.getPlayerLocation(username).toString().equals(location.toString())) {
-					if ((System.currentTimeMillis() / 1000L) - data.getPlayerTimestamp(username) > 5) {
+					if ((System.currentTimeMillis() / 1000L) - data.getPlayerTimestamp(username) > cm.timeout) {
+						if(!data.isAFK(username)) {
+							player.sendMessage(ChatColor.DARK_GREEN + "[Rewards] " + ChatColor.AQUA + "You are now AFK! You are " + ChatColor.RED + "NOT " + ChatColor.AQUA + "receiving money for playing.");
+						}
 						data.setAFK(username, true);
 					}
 				} else {
 					data.storePlayerLocation(username, location);
 					data.storePlayerTimestamp(username, System.currentTimeMillis() / 1000L);
+					if(data.isAFK(username)) {
+						player.sendMessage(ChatColor.DARK_GREEN + "[Rewards] " + ChatColor.AQUA + "You are no longer AFK! You are once again receiving money for playing.");
+					}
 					data.setAFK(username, false);
 				}
 			} else {
@@ -43,7 +52,7 @@ public class AFKListener implements Runnable {
 	public void purgePlayer(String username) {
 		data.clearPlayer(username);
 	}
-	
+
 	public PlayerData getData() {
 		return data;
 	}
