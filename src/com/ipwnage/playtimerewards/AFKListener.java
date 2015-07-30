@@ -2,17 +2,15 @@ package com.ipwnage.playtimerewards;
 
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 
 public class AFKListener implements Runnable {
-	CashMoney cashMoney;
-	PlayerData data = new PlayerData();
+	private PlayerData data;
 
-	public AFKListener(CashMoney CashMoney){
-		this.cashMoney  = CashMoney;
+	public AFKListener(PlayerData data){
+		this.data = data;
 	}
 
 	@Override
@@ -20,7 +18,6 @@ public class AFKListener implements Runnable {
 		monitorAFK();
 	}
 	
-	@SuppressWarnings("deprecation")
 	public void monitorAFK() {
 		for(Player player : Bukkit.getOnlinePlayers()) {
 			String username = player.getName();
@@ -39,17 +36,16 @@ public class AFKListener implements Runnable {
 				data.storePlayerTimestamp(username, System.currentTimeMillis() / 1000L);
 				data.storePlayerLocation(username, location);
 				data.setAFK(username, false);
-			}
-			
-			if (!data.isAFK(username)){
-				CashMoney.econ.depositPlayer(username, 1.0);
-			}
-			
+			}	
 		}
 	}
 
 	public void purgePlayer(String username) {
 		data.clearPlayer(username);
+	}
+	
+	public PlayerData getData() {
+		return data;
 	}
 
 }

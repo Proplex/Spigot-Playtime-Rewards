@@ -37,6 +37,10 @@ public class PlayerData {
 		return playerafk.get(username);
 	}
 	
+	public HashMap<String, Boolean> getAFKdata() {
+		return playerafk;
+	}
+	
 	public void clearPlayer(String username) {
 		playerlocationdata.remove(username);
 		playerafk.remove(username);
