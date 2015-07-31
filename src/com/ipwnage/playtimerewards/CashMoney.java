@@ -61,7 +61,7 @@ public class CashMoney extends JavaPlugin implements Listener {
 						if (getServer().getPlayer(player).hasPermission("playertime.earn.regular") && !getServer().getPlayer(player).hasPermission("playertime.earn.donor")) {
 							CashMoney.econ.depositPlayer(player, regularRate);
 							if(measeagePlayer) {
-								getServer().getPlayer(player).sendMessage(ChatColor.DARK_GREEN + String.format("[Rewards] You just received %f %s for playing on the server! Thanks!",regularRate, CashMoney.econ.currencyNamePlural()));
+								getServer().getPlayer(player).sendMessage(ChatColor.DARK_GREEN + String.format("[iPwnAge] You just received %f %s for playing on the server! Thanks!",regularRate, CashMoney.econ.currencyNamePlural()));
 							}
 							if(logConsole) {
 								log.info((ChatColor.DARK_GREEN + String.format("[PlaytimeRewards] " + player + " just received %f %s for playing on the server.",regularRate, CashMoney.econ.currencyNamePlural())));
@@ -71,7 +71,7 @@ public class CashMoney extends JavaPlugin implements Listener {
 						if (getServer().getPlayer(player).hasPermission("playertime.earn.donor") && !getServer().getPlayer(player).hasPermission("playertime.earn.regular")) {
 							CashMoney.econ.depositPlayer(player, donatorRate);
 							if(measeagePlayer) {
-								getServer().getPlayer(player).sendMessage(ChatColor.DARK_GREEN + String.format("[Rewards] You just received %f %s for playing on the server! Thanks!",donatorRate, CashMoney.econ.currencyNamePlural()));
+								getServer().getPlayer(player).sendMessage(ChatColor.DARK_GREEN + String.format("[iPwnAge] You just received %f %s for playing on the server! Thanks!",donatorRate, CashMoney.econ.currencyNamePlural()));
 							}
 							if(logConsole) {
 								log.info((ChatColor.DARK_GREEN + String.format("[PlaytimeRewards] " + player + " just received %f %s for playing on the server.",donatorRate, CashMoney.econ.currencyNamePlural())));
@@ -81,7 +81,7 @@ public class CashMoney extends JavaPlugin implements Listener {
 						if (getServer().getPlayer(player).hasPermission("playertime.earn.donor") && getServer().getPlayer(player).hasPermission("playertime.earn.regular")) {
 							CashMoney.econ.depositPlayer(player, donatorRate);
 							if(measeagePlayer) {
-								getServer().getPlayer(player).sendMessage(ChatColor.DARK_GREEN + String.format("[Rewards] You just received %f %s for playing on the server! Thanks!",donatorRate, CashMoney.econ.currencyNamePlural()));
+								getServer().getPlayer(player).sendMessage(ChatColor.DARK_GREEN + String.format("[iPwnAge] You just received %f %s for playing on the server! Thanks!",donatorRate, CashMoney.econ.currencyNamePlural()));
 							}
 							if(logConsole) {
 								log.info((ChatColor.DARK_GREEN + String.format("[PlaytimeRewards] " + player + " just received %f %s for playing on the server.",donatorRate, CashMoney.econ.currencyNamePlural())));
