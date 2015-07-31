@@ -57,8 +57,11 @@ public class CashMoney extends JavaPlugin implements Listener {
 			public void run() {
 				for(String player : data.getAFKdata().keySet()) {
 					if (!data.isAFK(player)){
-						if (Bukkit.getServer().getPlayer(player).hasPermission("playertime.earn")) {
+						if (getServer().getPlayer(player).hasPermission("playertime.earn.regular")) {
 							CashMoney.econ.depositPlayer(player, regularRate);
+						}
+						if (getServer().getPlayer(player).hasPermission("playertime.earn.donor")) {
+							CashMoney.econ.depositPlayer(player, donatorRate);
 						}
 					}
 				}
