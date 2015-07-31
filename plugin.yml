@@ -1,18 +1,21 @@
 name: PlaytimeRewards
 main: com.ipwnage.playtimerewards.CashMoney
 author: [Drew1895, Protocol_7]
-version: 2.0
+version: 2.1
 depend: [Vault]
 commands:
   pr:
-      description: This is a test command.
+      description: Used to control the PlaytimeRewards plugin.
       usage: /pr
      
  
 permissions:
-    playertime.admin:
-        description: Give this to staff so that they can use the commands in this plugin.
+    playertime.earn.regular:
+        description: Allows players to earn money for play time.
         default: false
-    playertime.rate.donator:
-        description: Allows money generation at a higher rate.
+    playertime.earn.donator:
+        description: Allows players to earn money at a higher rate.
+        default: false
+    playertime.admin:
+        description: Allows players to reload the configuration and update the configuration. You should only give this to staff members.
         default: false

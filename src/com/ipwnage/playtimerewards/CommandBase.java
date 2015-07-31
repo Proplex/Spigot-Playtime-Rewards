@@ -14,8 +14,8 @@ public class CommandBase  implements CommandExecutor {
 	public CommandBase(CashMoney cashMoney){
 		this.plugin = cashMoney;
 	}
-	//This does NOT work at the moment. July 10, 2015 at 9:08 AM EST.
-	//--Drew
+
+	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		Player player = (Player) sender;
 		if (command.getName().equalsIgnoreCase("pr")) {
@@ -26,14 +26,16 @@ public class CommandBase  implements CommandExecutor {
 					plugin.timeout = plugin.getConfig().getInt("timeout") / 2;
 					plugin.logConsole  = plugin.getConfig().getBoolean("logToConsole");
 					plugin.measeagePlayer = plugin.getConfig().getBoolean("messagePlayer");
-					plugin.checkAfk = plugin.getConfig().getBoolean("checkForAfk");
+					plugin.checkAFK = plugin.getConfig().getBoolean("checkForAfk");
 					plugin.delay = plugin.getConfig().getInt("delay") * 20;
 					plugin.regularRate = plugin.getConfig().getDouble("nonDonatorAmount");
 					plugin.donatorRate = plugin.getConfig().getDouble("donatorAmount");
-					plugin.survivalWorldRate = plugin.getConfig().getDouble("survivalAmount");
-					plugin.survivalWorldDonatorRate = plugin.getConfig().getDouble("donatorSurvivalAmount");
 
 					player.sendMessage(String.format(ChatColor.DARK_GREEN + "[Rewards] " + ChatColor.AQUA + "Successfully reloaded configuration"));
+				}
+				if(args[0].equalsIgnoreCase("updateconfig")) {
+					plugin.saveDefaultConfig();
+					player.sendMessage(String.format(ChatColor.DARK_GREEN + "[Rewards] " + ChatColor.AQUA + "Successfully updated configuration. You should update the values and then run /pr reload"));
 				}
 				}
 

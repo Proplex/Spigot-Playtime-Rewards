@@ -20,14 +20,3 @@ donatorAmount: 0.50
 
 ## The delay, in seconds, before a player is marked as AFK.
 timeout: 15
-
-
-##################
-#Message Settings#
-##################
-
-#What your server is called.
-serverName: someServer
-
-#If you opt in to messaging the player type what will get displayed here
-playerMessage:

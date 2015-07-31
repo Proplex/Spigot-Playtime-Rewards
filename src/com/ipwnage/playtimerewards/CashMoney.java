@@ -3,6 +3,7 @@ package com.ipwnage.playtimerewards;
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -21,13 +22,10 @@ public class CashMoney extends JavaPlugin implements Listener {
 	public int timeout = getConfig().getInt("timeout");
 	public boolean logConsole  = getConfig().getBoolean("logToConsole");
 	public boolean measeagePlayer = getConfig().getBoolean("messagePlayer");
-	public boolean checkAfk = getConfig().getBoolean("checkForAfk");
+	public boolean checkAFK = getConfig().getBoolean("checkForAfk");
 	public int delay = getConfig().getInt("delay") * 20;
 	public double regularRate = getConfig().getDouble("nonDonatorAmount");
 	public double donatorRate = getConfig().getDouble("donatorAmount");
-	public double survivalWorldRate = getConfig().getDouble("survivalAmountToGive");
-	public double survivalWorldDonatorRate = getConfig().getDouble("donatorSurvivalAmountToGive");
-	public String serverName = getConfig().getString("serverName");
 
 	private AFKListener afkcheck;
 	private PlayerData data = new PlayerData();
@@ -48,20 +46,46 @@ public class CashMoney extends JavaPlugin implements Listener {
 		}
 
 		getCommand("pr").setExecutor(new CommandBase(this));
-		afkcheck = new AFKListener(data, this);
 		BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
-		scheduler.scheduleSyncRepeatingTask(this, afkcheck, 10, 10);
+		if(checkAFK) {
+			afkcheck = new AFKListener(data, this);
+			scheduler.scheduleSyncRepeatingTask(this, afkcheck, 10, 10);
+		}
 		scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
 			@SuppressWarnings("deprecation")
 			@Override
 			public void run() {
 				for(String player : data.getPlayers()) {
 					if (!data.isAFK(player)){
-						if (getServer().getPlayer(player).hasPermission("playertime.earn.regular")) {
+						//If player has the playertime.earn.regular permission, give them the regular rate.
+						if (getServer().getPlayer(player).hasPermission("playertime.earn.regular") && !getServer().getPlayer(player).hasPermission("playertime.earn.donor")) {
 							CashMoney.econ.depositPlayer(player, regularRate);
+							if(measeagePlayer) {
+								getServer().getPlayer(player).sendMessage(ChatColor.DARK_GREEN + String.format("[Rewards] You just received %f %s for playing on the server! Thanks!",regularRate, CashMoney.econ.currencyNamePlural()));
+							}
+							if(logConsole) {
+								log.info((ChatColor.DARK_GREEN + String.format("[PlaytimeRewards] " + player + " just received %f %s for playing on the server.",regularRate, CashMoney.econ.currencyNamePlural())));
+							}
 						}
-						if (getServer().getPlayer(player).hasPermission("playertime.earn.donor")) {
+						//If player has the playertime.earn.donor permission, give them the donator rate.
+						if (getServer().getPlayer(player).hasPermission("playertime.earn.donor") && !getServer().getPlayer(player).hasPermission("playertime.earn.regular")) {
 							CashMoney.econ.depositPlayer(player, donatorRate);
+							if(measeagePlayer) {
+								getServer().getPlayer(player).sendMessage(ChatColor.DARK_GREEN + String.format("[Rewards] You just received %f %s for playing on the server! Thanks!",donatorRate, CashMoney.econ.currencyNamePlural()));
+							}
+							if(logConsole) {
+								log.info((ChatColor.DARK_GREEN + String.format("[PlaytimeRewards] " + player + " just received %f %s for playing on the server.",donatorRate, CashMoney.econ.currencyNamePlural())));
+							}
+						}
+						//If player has both the playertime.earn.donor and playertime.earn.regular permissions, give them the donator rate. (The dual permission is most likely a result of inheritance and players shouldn't receive both)
+						if (getServer().getPlayer(player).hasPermission("playertime.earn.donor") && getServer().getPlayer(player).hasPermission("playertime.earn.regular")) {
+							CashMoney.econ.depositPlayer(player, donatorRate);
+							if(measeagePlayer) {
+								getServer().getPlayer(player).sendMessage(ChatColor.DARK_GREEN + String.format("[Rewards] You just received %f %s for playing on the server! Thanks!",donatorRate, CashMoney.econ.currencyNamePlural()));
+							}
+							if(logConsole) {
+								log.info((ChatColor.DARK_GREEN + String.format("[PlaytimeRewards] " + player + " just received %f %s for playing on the server.",donatorRate, CashMoney.econ.currencyNamePlural())));
+							}
 						}
 					}
 				}
