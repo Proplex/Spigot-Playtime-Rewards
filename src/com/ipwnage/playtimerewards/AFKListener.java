@@ -28,7 +28,7 @@ public class AFKListener implements Runnable {
 				if (data.getPlayerLocation(username).equals(location)) {
 					if ((System.currentTimeMillis() / 1000L) - data.getPlayerTimestamp(username) > cm.timeout) {
 						if(!data.isAFK(username)) {
-							player.sendMessage(ChatColor.DARK_GREEN + "[Rewards] " + ChatColor.AQUA + "You are now AFK! You are " + ChatColor.RED + "NOT " + ChatColor.AQUA + "receiving money for playing.");
+							player.sendMessage(ChatColor.DARK_GREEN + "[iPwnAge] " + ChatColor.AQUA + "You are now AFK! You are " + ChatColor.RED + "NOT " + ChatColor.AQUA + "receiving money for playing.");
 						}
 						data.setAFK(username, true);
 					}
@@ -36,7 +36,7 @@ public class AFKListener implements Runnable {
 					data.storePlayerLocation(username, location);
 					data.storePlayerTimestamp(username, System.currentTimeMillis() / 1000L);
 					if(data.isAFK(username)) {
-						player.sendMessage(ChatColor.DARK_GREEN + "[Rewards] " + ChatColor.AQUA + "You are no longer AFK! You are once again receiving money for playing.");
+						player.sendMessage(ChatColor.DARK_GREEN + "[iPwnAge] " + ChatColor.AQUA + "You are no longer AFK! You are once again receiving money for playing.");
 					}
 					data.setAFK(username, false);
 				}
