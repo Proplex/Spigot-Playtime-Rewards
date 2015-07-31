@@ -3,14 +3,12 @@ package com.ipwnage.playtimerewards;
 import java.util.HashMap;
 import java.util.Set;
 
-import org.bukkit.Location;
-
 public class PlayerData {
-	private HashMap<String, Location> playerlocationdata = new HashMap<String, Location>();
+	private HashMap<String, Float> playerlocationdata = new HashMap<String, Float>();
 	private HashMap<String, Long> playertimestampdata = new HashMap<String, Long>();
 	private HashMap<String, Boolean> playerafk = new HashMap<String, Boolean>();
 	
-	public void storePlayerLocation(String username, Location location) {
+	public void storePlayerLocation(String username, Float location) {
 		playerlocationdata.put(username, location);
 	}
 	
@@ -18,7 +16,7 @@ public class PlayerData {
 		return playerlocationdata.containsKey(username);
 	}
 	
-	public Location getPlayerLocation(String username) {
+	public Float getPlayerLocation(String username) {
 		return playerlocationdata.get(username);
 	}
 	

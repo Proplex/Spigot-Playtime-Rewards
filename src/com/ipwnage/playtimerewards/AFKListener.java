@@ -3,7 +3,6 @@ package com.ipwnage.playtimerewards;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 
@@ -24,9 +23,9 @@ public class AFKListener implements Runnable {
 	public void monitorAFK() {
 		for(Player player : Bukkit.getOnlinePlayers()) {
 			String username = player.getName();
-			Location location = player.getLocation();
+			float location = player.getLocation().getYaw();
 			if (data.playerExists(username)) {
-				if (data.getPlayerLocation(username).toString().equals(location.toString())) {
+				if (data.getPlayerLocation(username).equals(location)) {
 					if ((System.currentTimeMillis() / 1000L) - data.getPlayerTimestamp(username) > cm.timeout) {
 						if(!data.isAFK(username)) {
 							player.sendMessage(ChatColor.DARK_GREEN + "[Rewards] " + ChatColor.AQUA + "You are now AFK! You are " + ChatColor.RED + "NOT " + ChatColor.AQUA + "receiving money for playing.");
