@@ -50,12 +50,12 @@ public class CashMoney extends JavaPlugin implements Listener {
 		getCommand("pr").setExecutor(new CommandBase(this));
 		afkcheck = new AFKListener(data, this);
 		BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
-		scheduler.scheduleSyncRepeatingTask(this, afkcheck, 20, 20);
+		scheduler.scheduleSyncRepeatingTask(this, afkcheck, 10, 10);
 		scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
 			@SuppressWarnings("deprecation")
 			@Override
 			public void run() {
-				for(String player : data.getAFKdata().keySet()) {
+				for(String player : data.getPlayers()) {
 					if (!data.isAFK(player)){
 						if (getServer().getPlayer(player).hasPermission("playertime.earn.regular")) {
 							CashMoney.econ.depositPlayer(player, regularRate);

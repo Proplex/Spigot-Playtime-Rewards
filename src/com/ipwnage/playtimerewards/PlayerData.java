@@ -1,6 +1,7 @@
 package com.ipwnage.playtimerewards;
 
 import java.util.HashMap;
+import java.util.Set;
 
 import org.bukkit.Location;
 
@@ -37,8 +38,8 @@ public class PlayerData {
 		return playerafk.get(username);
 	}
 	
-	public HashMap<String, Boolean> getAFKdata() {
-		return playerafk;
+	public Set<String> getPlayers() {
+		return playerafk.keySet();
 	}
 	
 	public void clearPlayer(String username) {
