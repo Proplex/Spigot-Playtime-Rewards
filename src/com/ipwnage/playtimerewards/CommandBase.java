@@ -26,7 +26,7 @@ public class CommandBase  implements CommandExecutor {
 					plugin.timeout = plugin.getConfig().getInt("timeout") / 2;
 					plugin.logConsole  = plugin.getConfig().getBoolean("logToConsole");
 					plugin.measeagePlayer = plugin.getConfig().getBoolean("messagePlayer");
-					plugin.checkAFK = plugin.getConfig().getBoolean("checkForAfk");
+					plugin.checkAFK = plugin.getConfig().getBoolean("checkForAFK");
 					plugin.delay = plugin.getConfig().getInt("delay") * 20;
 					plugin.regularRate = plugin.getConfig().getDouble("nonDonatorAmount");
 					plugin.donatorRate = plugin.getConfig().getDouble("donatorAmount");

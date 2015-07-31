@@ -22,7 +22,7 @@ public class CashMoney extends JavaPlugin implements Listener {
 	public int timeout = getConfig().getInt("timeout");
 	public boolean logConsole  = getConfig().getBoolean("logToConsole");
 	public boolean measeagePlayer = getConfig().getBoolean("messagePlayer");
-	public boolean checkAFK = getConfig().getBoolean("checkForAfk");
+	public boolean checkAFK = getConfig().getBoolean("checkForAFK");
 	public int delay = getConfig().getInt("delay") * 20;
 	public double regularRate = getConfig().getDouble("nonDonatorAmount");
 	public double donatorRate = getConfig().getDouble("donatorAmount");
@@ -61,30 +61,30 @@ public class CashMoney extends JavaPlugin implements Listener {
 						if (getServer().getPlayer(player).hasPermission("playertime.earn.regular") && !getServer().getPlayer(player).hasPermission("playertime.earn.donor")) {
 							CashMoney.econ.depositPlayer(player, regularRate);
 							if(measeagePlayer) {
-								getServer().getPlayer(player).sendMessage(ChatColor.DARK_GREEN + String.format("[Rewards] You just received %f %s for playing on the server! Thanks!",regularRate, CashMoney.econ.currencyNamePlural()));
+								getServer().getPlayer(player).sendMessage(String.format(ChatColor.DARK_GREEN + "[Rewards] " + ChatColor.AQUA + "You just received %f %s for playing on the server! Thanks!",regularRate, CashMoney.econ.currencyNamePlural()));
 							}
 							if(logConsole) {
-								log.info((ChatColor.DARK_GREEN + String.format("[PlaytimeRewards] " + player + " just received %f %s for playing on the server.",regularRate, CashMoney.econ.currencyNamePlural())));
+								log.info((String.format("[PlaytimeRewards] " + player + " just received %f %s for playing on the server.",regularRate, CashMoney.econ.currencyNamePlural())));
 							}
 						}
 						//If player has the playertime.earn.donor permission, give them the donator rate.
 						if (getServer().getPlayer(player).hasPermission("playertime.earn.donor") && !getServer().getPlayer(player).hasPermission("playertime.earn.regular")) {
 							CashMoney.econ.depositPlayer(player, donatorRate);
 							if(measeagePlayer) {
-								getServer().getPlayer(player).sendMessage(ChatColor.DARK_GREEN + String.format("[Rewards] You just received %f %s for playing on the server! Thanks!",donatorRate, CashMoney.econ.currencyNamePlural()));
+								getServer().getPlayer(player).sendMessage(String.format(ChatColor.DARK_GREEN + "[Rewards] " + ChatColor.AQUA + "You just received %f %s for playing on the server! Thanks!",donatorRate, CashMoney.econ.currencyNamePlural()));
 							}
 							if(logConsole) {
-								log.info((ChatColor.DARK_GREEN + String.format("[PlaytimeRewards] " + player + " just received %f %s for playing on the server.",donatorRate, CashMoney.econ.currencyNamePlural())));
+								log.info((String.format("[PlaytimeRewards] " + player + " just received %f %s for playing on the server.",donatorRate, CashMoney.econ.currencyNamePlural())));
 							}
 						}
 						//If player has both the playertime.earn.donor and playertime.earn.regular permissions, give them the donator rate. (The dual permission is most likely a result of inheritance and players shouldn't receive both)
 						if (getServer().getPlayer(player).hasPermission("playertime.earn.donor") && getServer().getPlayer(player).hasPermission("playertime.earn.regular")) {
 							CashMoney.econ.depositPlayer(player, donatorRate);
 							if(measeagePlayer) {
-								getServer().getPlayer(player).sendMessage(ChatColor.DARK_GREEN + String.format("[Rewards] You just received %f %s for playing on the server! Thanks!",donatorRate, CashMoney.econ.currencyNamePlural()));
+								getServer().getPlayer(player).sendMessage(String.format(ChatColor.DARK_GREEN + "[Rewards] " + ChatColor.AQUA + "You just received %f %s for playing on the server! Thanks!",donatorRate, CashMoney.econ.currencyNamePlural()));
 							}
 							if(logConsole) {
-								log.info((ChatColor.DARK_GREEN + String.format("[PlaytimeRewards] " + player + " just received %f %s for playing on the server.",donatorRate, CashMoney.econ.currencyNamePlural())));
+								log.info((String.format("[PlaytimeRewards] " + player + " just received %f %s for playing on the server.",donatorRate, CashMoney.econ.currencyNamePlural())));
 							}
 						}
 					}
